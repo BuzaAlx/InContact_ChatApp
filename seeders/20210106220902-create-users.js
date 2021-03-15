@@ -7,35 +7,30 @@ module.exports = {
     const createdAt = new Date();
     const updatedAt = createdAt;
 
-    // https://unsplash.com/photos/ZHvM3XIOHoE
-    // https://unsplash.com/photos/b1Hg7QI-zcc
-    // https://unsplash.com/photos/RiDxDgHg7pw
-
     await queryInterface.bulkInsert("users", [
       {
-        username: "john",
-        email: "john@email.com",
+        username: "User",
+        email: "user@email.com",
         password: password,
         imageUrl:
-          "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1700&q=80",
+          "https://bain.design/wp-content/uploads/2013/03/People-Avatar-Set-Rectangular-18.jpg",
         createdAt,
         updatedAt,
       },
       {
-        username: "jane",
-        email: "jane@email.com",
+        username: "Elena",
+        email: "elena@email.com",
         password: password,
-        imageUrl:
-          "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2190&q=80",
+        imageUrl: "https://essayslimmer.com/assets/avatars/stevie.jpg",
         createdAt,
         updatedAt,
       },
       {
-        username: "boss",
-        email: "boss@email.com",
+        username: "Viktor",
+        email: "viktor@email.com",
         password: password,
         imageUrl:
-          "https://images.unsplash.com/photo-1566753323558-f4e0952af115?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2122&q=80",
+          "https://lh3.googleusercontent.com/proxy/zrVrWKKNo74Df6iH3qJGMrJBFlicGJMJHQjjBdM-olWfB8vx3ly_BjL_kn5eOZyWZDxWz9Z8oIwm7vx_vpLntHoG8vd_ilKxsNQsqzGc",
         createdAt,
         updatedAt,
       },

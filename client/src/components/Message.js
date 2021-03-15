@@ -89,11 +89,11 @@ function Message({ message, image }) {
           color="textSecondary"
           align={received ? "right" : "left"}
         >
-          {moment(message.createdAt).format("MMM DD, YYYY @ h:mm a")}
+          {moment(message.createdAt).format("MMM DD @ h:mm a")}
         </Typography>
 
         {message.reactions.length > 0 && (
-          <Box className={styles.emoji}>
+          <Box className={received ? styles.emoji : styles.emojiRight}>
             {reactionIcons} {message.reactions.length}
           </Box>
         )}

@@ -8,7 +8,6 @@ import Home from "./pages/Home";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ApolloProvider from "./ApolloProvider";
 
-import { MessageProvider } from "./context/message";
 import DynamicRoute from "./helpers/DynamicRoute";
 
 import store from "./redux/createStore";
@@ -30,19 +29,17 @@ function App() {
   return (
     <Provider store={store}>
       <ApolloProvider>
-        <MessageProvider>
-          <BrowserRouter>
-            <ThemeProvider theme={darkTheme}>
-              <div className="App">
-                <Switch>
-                  <DynamicRoute exact path="/" component={Home} authenticated />
-                  <DynamicRoute path="/register" component={Register} guest />
-                  <DynamicRoute path="/login" component={SignIn} guest />
-                </Switch>
-              </div>
-            </ThemeProvider>
-          </BrowserRouter>
-        </MessageProvider>
+        <BrowserRouter>
+          <ThemeProvider theme={darkTheme}>
+            <div className="App">
+              <Switch>
+                <DynamicRoute exact path="/" component={Home} authenticated />
+                <DynamicRoute path="/register" component={Register} guest />
+                <DynamicRoute path="/login" component={SignIn} guest />
+              </Switch>
+            </div>
+          </ThemeProvider>
+        </BrowserRouter>
       </ApolloProvider>
     </Provider>
   );

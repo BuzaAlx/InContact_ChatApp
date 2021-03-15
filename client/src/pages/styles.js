@@ -114,9 +114,6 @@ export const useSignInStyles = makeStyles((theme) => ({
 }));
 
 export const useHomeStyles = makeStyles((theme) => ({
-  leftBlock: {
-    backgroundColor: "rgba(2,0,36,0.4);",
-  },
   rightBlock: {},
   content: {
     borderRadius: "20px",
