@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
-import Loyout from "../components/Loyout";
 import { Grid } from "@material-ui/core/";
+import { gql, useSubscription } from "@apollo/client";
+
+import Loyout from "../components/Loyout";
 import UsersList from "../components/UsersList";
 import Messages from "../components/Messages";
 import { useHomeStyles } from "./styles";
-import { gql, useSubscription } from "@apollo/client";
 
 import { useSelector, useDispatch } from "react-redux";
-
 import { addMessage, addReaction } from "../redux/Users/users.actions";
 
 const mapState = (state) => ({

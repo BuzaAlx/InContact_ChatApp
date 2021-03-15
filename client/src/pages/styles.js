@@ -116,6 +116,8 @@ export const useSignInStyles = makeStyles((theme) => ({
 export const useHomeStyles = makeStyles((theme) => ({
   rightBlock: {},
   content: {
+    position: "relative",
+    zIndex: "2",
     borderRadius: "20px",
     justifyContent: "space-around",
     background:

@@ -38,6 +38,7 @@ export const useMessageStyles = makeStyles((theme) => ({
     fontWeight: "200",
     wordWrap: "break-word",
     maxWidth: "300px",
+    cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
       maxWidth: "200px",
     },
@@ -200,6 +201,7 @@ export const useUsersListStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       display: "none",
     },
+    padding: "10px",
   },
   authUser: {
     [theme.breakpoints.down("xs")]: {

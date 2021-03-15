@@ -39,13 +39,12 @@ const GET_USERS = gql`
 `;
 
 function UsersList() {
-  const dispatch = useDispatch();
-  const { user, users } = useSelector(mapState);
-
   const [value, setValue] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
-
+  const { user, users } = useSelector(mapState);
   const classes = useUsersListStyles();
+
+  const dispatch = useDispatch();
 
   const selectedUser = users?.find((u) => u.selected === true)?.username;
 
@@ -63,8 +62,6 @@ function UsersList() {
       return user.username.startsWith(value);
     });
 
-    console.log(newUsers);
-
     setFilteredUsers(newUsers);
   }, [value]);
 
@@ -81,7 +78,6 @@ function UsersList() {
           className={classes.listItem}
           alignItems="center"
           button
-          key="RemySharp"
           key={user.username}
           onClick={() => dispatch(setSelectedUser(user.username))}
           selected={selected}
@@ -125,11 +121,11 @@ function UsersList() {
   return (
     <>
       <List>
-        <ListItem key="RemySharp" className={classes.authUserContainer}>
+        <ListItem key="user" className={classes.authUserContainer}>
           <ListItemIcon>
             <Avatar
               alt="user"
-              src="https://material-ui.com/static/images/avatar/1.jpg"
+              src="https://bain.design/wp-content/uploads/2013/03/People-Avatar-Set-Rectangular-18.jpg"
             />
           </ListItemIcon>
           <ListItemText
@@ -139,12 +135,7 @@ function UsersList() {
         </ListItem>
       </List>
       <Divider />
-      <Grid
-        item
-        xs={12}
-        className={classes.searchUserInput}
-        style={{ padding: "10px" }}
-      >
+      <Grid item xs={12} className={classes.searchUserInput}>
         <TextField
           value={value}
           onChange={({ target }) => setValue(target.value)}

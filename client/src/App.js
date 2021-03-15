@@ -1,17 +1,16 @@
 import "./App.css";
 import React from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import Register from "./pages/Register";
 import { deepPurple } from "@material-ui/core/colors";
-import SignIn from "./pages/SignIn";
-import Home from "./pages/Home";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import ApolloProvider from "./ApolloProvider";
-
-import DynamicRoute from "./helpers/DynamicRoute";
-
-import store from "./redux/createStore";
 import { Provider } from "react-redux";
+
+import Home from "./pages/Home";
+import Register from "./pages/Register";
+import SignIn from "./pages/SignIn";
+import ApolloProvider from "./ApolloProvider";
+import DynamicRoute from "./helpers/DynamicRoute";
+import store from "./redux/createStore";
 
 const darkTheme = createMuiTheme({
   typography: {
