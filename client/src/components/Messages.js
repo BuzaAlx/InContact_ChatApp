@@ -18,10 +18,10 @@ import ExitToAppTwoToneIcon from "@material-ui/icons/ExitToAppTwoTone";
 import Message from "./Message";
 import { useMessagesStyles } from "./styles";
 import { gql, useLazyQuery, useMutation } from "@apollo/client";
-
 import { useSelector, useDispatch } from "react-redux";
-
 import { setUserMessages } from "../redux/Users/users.actions";
+
+import Alert from "./Alert";
 
 const mapState = (state) => ({
   users: state.usersData.users,
@@ -58,6 +58,7 @@ const GET_MESSAGES = gql`
 function Messages() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
+  const [errors, setErrors] = useState("");
   const styles = useMessagesStyles();
 
   const { users } = useSelector(mapState);
@@ -76,7 +77,7 @@ function Messages() {
   ] = useLazyQuery(GET_MESSAGES);
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
-    onError: (err) => console.log(err),
+    onError: (err) => setErrors(err),
   });
 
   useEffect(() => {
@@ -154,6 +155,13 @@ function Messages() {
         {selectedChatMarkup}
       </Box>
       <Box className={styles.footer}>
+        {errors && (
+          <Alert
+            message={errors.message}
+            setErrors={setErrors}
+            expiresIn="2000"
+          />
+        )}
         <form onSubmit={submitMessage} className={styles.form}>
           <Input
             disableUnderline
