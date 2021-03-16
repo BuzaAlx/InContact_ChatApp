@@ -58,7 +58,12 @@ function Message({ message, image }) {
         />
       )}
       <Box className={styles.messageBox}>
-        <Box className={styles.messageText} onClick={handleClick}>
+        <Box
+          className={`${styles.messageText} ${
+            sent ? styles.selfMessageText : null
+          }`}
+          onClick={handleClick}
+        >
           {message.content}
         </Box>
         <Popover

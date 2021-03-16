@@ -33,7 +33,7 @@ export const useMessageStyles = makeStyles((theme) => ({
   messageText: {
     padding: "10px",
     borderRadius: "15px",
-    backgroundColor: "rgba(28, 21, 235, 0.2);",
+    backgroundColor: "rgba(201,247,111, 0.8)",
     fontFamily: "'Work Sans', sans-serif;",
     fontWeight: "200",
     wordWrap: "break-word",
@@ -42,6 +42,9 @@ export const useMessageStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       maxWidth: "200px",
     },
+  },
+  selfMessageText: {
+    backgroundColor: "rgba(92,204,204, 0.8);",
   },
   emoji: {
     position: "absolute",
@@ -163,6 +166,9 @@ export const useMessagesStyles = makeStyles((theme) => ({
 }));
 
 export const useUsersListStyles = makeStyles((theme) => ({
+  usersMarkup: {
+    padding: 10,
+  },
   table: {
     minWidth: 650,
   },

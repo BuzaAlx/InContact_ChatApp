@@ -15,6 +15,7 @@ import { clipStr } from "../helpers/StringClipper";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setUsers, setSelectedUser } from "../redux/Users/users.actions";
+import { valueFromAST } from "graphql";
 
 const mapState = (state) => ({
   user: state.authData.user,
@@ -59,7 +60,7 @@ function UsersList() {
   useEffect(() => {
     let newUsers;
     newUsers = users?.filter((user) => {
-      return user.username.startsWith(value);
+      return user.username.startsWith(value.toLowerCase());
     });
 
     setFilteredUsers(newUsers);
@@ -67,9 +68,17 @@ function UsersList() {
 
   let usersMarkup;
   if (!filteredUsers || loading) {
-    usersMarkup = <Typography variant="body2">Loading..</Typography>;
+    usersMarkup = (
+      <Typography variant="body2" className={classes.usersMarkup}>
+        Loading..
+      </Typography>
+    );
   } else if (filteredUsers.length === 0) {
-    usersMarkup = <Typography variant="body2">No users</Typography>;
+    usersMarkup = (
+      <Typography variant="body2" className={classes.usersMarkup}>
+        No users
+      </Typography>
+    );
   } else if (filteredUsers.length > 0) {
     usersMarkup = filteredUsers.map((user) => {
       const selected = selectedUser === user.username;

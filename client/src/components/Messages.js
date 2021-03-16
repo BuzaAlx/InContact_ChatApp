@@ -100,11 +100,9 @@ function Messages() {
     e.preventDefault();
 
     if (content.trim() === "" || !selectedUser) return;
-
+    if (content.length)
+      sendMessage({ variables: { to: selectedUser.username, content } });
     setContent("");
-
-    // mutation for sending the message
-    sendMessage({ variables: { to: selectedUser.username, content } });
   };
 
   let selectedChatMarkup;
@@ -135,7 +133,7 @@ function Messages() {
           <ListItem key="RemySharp" className={styles.messagesHeader}>
             <ListItemIcon>
               <Avatar
-                alt="Remy Sharp"
+                alt="user"
                 src={selectedUser ? selectedUser.imageUrl : ""}
               />
             </ListItemIcon>

@@ -9,7 +9,7 @@ module.exports = {
 
     await queryInterface.bulkInsert("users", [
       {
-        username: "User",
+        username: "user",
         email: "user@email.com",
         password: password,
         imageUrl:
@@ -18,7 +18,7 @@ module.exports = {
         updatedAt,
       },
       {
-        username: "Elena",
+        username: "elena",
         email: "elena@email.com",
         password: password,
         imageUrl: "https://essayslimmer.com/assets/avatars/stevie.jpg",
@@ -26,7 +26,7 @@ module.exports = {
         updatedAt,
       },
       {
-        username: "Viktor",
+        username: "viktor",
         email: "viktor@email.com",
         password: password,
         imageUrl:

@@ -48,7 +48,7 @@ function Register(props) {
 
   return (
     <Loyout>
-      <Grid xs={11} md={6} className={classes.root}>
+      <Grid xs={11} md={8} className={classes.root}>
         <Grid item xs={12} sm={6} md={6} lg={6}>
           <div className={classes.paper}>
             <Typography component="h1" variant="h5">
