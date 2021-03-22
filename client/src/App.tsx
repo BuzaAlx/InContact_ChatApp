@@ -24,7 +24,7 @@ const darkTheme = createMuiTheme({
   },
 });
 
-function App() {
+const App: React.FC = () => {
   return (
     <Provider store={store}>
       <ApolloProvider>
@@ -42,6 +42,6 @@ function App() {
       </ApolloProvider>
     </Provider>
   );
-}
+};
 
 export default App;

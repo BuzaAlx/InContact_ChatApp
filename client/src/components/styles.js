@@ -47,13 +47,14 @@ export const useMessageStyles = makeStyles((theme) => ({
     backgroundColor: "rgba(92,204,204, 0.8);",
   },
   emoji: {
+    fontFamily: "'Work Sans', sans-serif;",
     position: "absolute",
-    top: "10px",
+    top: "7px",
     right: "-10px",
     backgroundColor: "rgba(2,0,36,0.4);",
     color: theme.palette.text.primary,
     borderRadius: "20px",
-    padding: " 0 2px 0",
+    padding: " 0 6px 0",
     fontSize: "0.8rem",
   },
   emojiRight: {
