@@ -7,7 +7,21 @@ import { useSignInStyles } from "./styles";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/Auth/auth.actions";
 
-// import { useAuthDispatch } from "../context/auth";
+interface Login {
+  username: string;
+  email: string;
+  createdAt: number;
+  token: string;
+}
+
+interface loginData {
+  login: Login;
+}
+
+interface LoginVars {
+  username: string;
+  password: string;
+}
 
 const LOGIN_USER = gql`
   query login($username: String!, $password: String!) {
@@ -20,27 +34,30 @@ const LOGIN_USER = gql`
   }
 `;
 
-function SignIn() {
+const SignIn: React.FC = (props: any) => {
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any | null>({});
   const [variables, setVariables] = useState({
     username: "",
     password: "",
   });
 
-  const classes = useSignInStyles();
-  // const dispatch = useAuthDispatch();
+  const classes: any = useSignInStyles();
 
-  const [loginUser, { loading }] = useLazyQuery(LOGIN_USER, {
-    onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
+  const [loginUser, { loading }] = useLazyQuery<loginData, LoginVars>(
+    LOGIN_USER,
+    {
+      onError: (err: any) => setErrors(err.graphQLErrors[0].extensions.errors),
 
-    onCompleted(data) {
-      dispatch(login(data.login));
-      window.location.href = "/";
-    },
-  });
+      onCompleted(data) {
+        console.log(data, "asdasdasds");
+        dispatch(login(data.login));
+        // window.location.href = "/";
+      },
+    }
+  );
 
-  const submitLoginForm = (e) => {
+  const submitLoginForm = (e: any) => {
     e.preventDefault();
     loginUser({ variables });
   };
@@ -106,7 +123,7 @@ function SignIn() {
               </Button>
               <Grid container justify="center">
                 <Grid item>
-                  <Link to="./register" variant="body2" color="white">
+                  <Link to="./register">
                     <Typography variant="overline" color="textSecondary">
                       Don't have an account? Sign Up
                     </Typography>
@@ -129,6 +146,6 @@ function SignIn() {
       </Grid>
     </Loyout>
   );
-}
+};
 
 export default SignIn;

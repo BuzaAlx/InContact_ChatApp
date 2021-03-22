@@ -15,9 +15,7 @@ let httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  // // get the authentication token from local storage if it exists
   const token = localStorage.getItem("token");
-  // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -55,6 +53,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default function ApolloProvider(props) {
+export default function ApolloProvider(props: any) {
   return <Provider client={client} {...props} />;
 }
