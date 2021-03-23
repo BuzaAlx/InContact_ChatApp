@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
-import { gql, useMutation } from "@apollo/client";
-import { Link } from "react-router-dom";
+import { gql, useMutation, ApolloError } from "@apollo/client";
+import { Link, RouteComponentProps } from "react-router-dom";
 import Loyout from "../components/Loyout";
 import { useRegisterStyles } from "./styles";
+
+interface userCredentials {
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
+}
 
 const REGISTER_USER = gql`
   mutation register(
@@ -25,7 +32,7 @@ const REGISTER_USER = gql`
   }
 `;
 
-function Register(props) {
+const Register: React.FC<RouteComponentProps> = ({ history }) => {
   const classes = useRegisterStyles();
   const [variables, setVariables] = useState({
     email: "",
@@ -33,14 +40,15 @@ function Register(props) {
     password: "",
     confirmPassword: "",
   });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<any | null>({});
 
-  const [registerUser] = useMutation(REGISTER_USER, {
-    update: (_, __) => props.history.push("/login"),
-    onError: (err) => setErrors(err.graphQLErrors[0].extensions.errors),
+  const [registerUser] = useMutation<userCredentials>(REGISTER_USER, {
+    update: (_, __) => history.push("/login"),
+    onError: (err: ApolloError | any) =>
+      setErrors(err.graphQLErrors[0].extensions.errors),
   });
 
-  const submitRegisterForm = (e) => {
+  const submitRegisterForm = (e: FormEvent) => {
     e.preventDefault();
 
     registerUser({ variables });
@@ -140,7 +148,7 @@ function Register(props) {
               </Button>
               <Grid container justify="center">
                 <Grid item>
-                  <Link to="./login" variant="body2" color="white">
+                  <Link to="./login" color="white">
                     <Typography variant="overline" color="textSecondary">
                       Already have an account? Sign in
                     </Typography>
@@ -161,6 +169,6 @@ function Register(props) {
       </Grid>
     </Loyout>
   );
-}
+};
 
 export default Register;

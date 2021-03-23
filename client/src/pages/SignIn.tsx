@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
-import { gql, useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery, ApolloError } from "@apollo/client";
 import { Link } from "react-router-dom";
 import Loyout from "../components/Loyout";
 import { useSignInStyles } from "./styles";
@@ -47,7 +47,8 @@ const SignIn: React.FC = (props: any) => {
   const [loginUser, { loading }] = useLazyQuery<loginData, LoginVars>(
     LOGIN_USER,
     {
-      onError: (err: any) => setErrors(err.graphQLErrors[0].extensions.errors),
+      onError: (err: ApolloError | any) =>
+        setErrors(err.graphQLErrors[0].extensions.errors),
 
       onCompleted(data) {
         console.log(data, "asdasdasds");
