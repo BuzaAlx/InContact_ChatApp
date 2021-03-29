@@ -82,7 +82,11 @@ function Message({ message, image }) {
         >
           <Box className={styles.reactionsBox}>
             {reactions.map((reaction) => (
-              <b className={styles.reaction} onClick={() => react(reaction)}>
+              <b
+                key={reaction}
+                className={styles.reaction}
+                onClick={() => react(reaction)}
+              >
                 {reaction}
               </b>
             ))}

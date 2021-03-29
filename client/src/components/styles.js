@@ -167,6 +167,12 @@ export const useMessagesStyles = makeStyles((theme) => ({
 }));
 
 export const useUsersListStyles = makeStyles((theme) => ({
+  userInfo: {
+    maxWidth: "120px",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+  },
   usersMarkup: {
     padding: 10,
   },

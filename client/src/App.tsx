@@ -32,9 +32,18 @@ const App: React.FC = () => {
           <ThemeProvider theme={darkTheme}>
             <div className="App">
               <Switch>
-                <DynamicRoute exact path="/" component={Home} authenticated />
-                <DynamicRoute path="/register" component={Register} guest />
-                <DynamicRoute path="/login" component={SignIn} guest />
+                <DynamicRoute
+                  exact
+                  path="/"
+                  currentComponent={Home}
+                  authenticated
+                />
+                <DynamicRoute
+                  path="/register"
+                  currentComponent={Register}
+                  guest
+                />
+                <DynamicRoute path="/login" currentComponent={SignIn} guest />
               </Switch>
             </div>
           </ThemeProvider>

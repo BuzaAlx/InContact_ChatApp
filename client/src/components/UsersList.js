@@ -11,11 +11,9 @@ import Avatar from "@material-ui/core/Avatar";
 import { gql, useQuery } from "@apollo/client";
 import { useUsersListStyles } from "./styles";
 import moment from "moment";
-import { clipStr } from "../helpers/StringClipper";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setUsers, setSelectedUser } from "../redux/Users/users.actions";
-import { valueFromAST } from "graphql";
 
 const mapState = (state) => ({
   user: state.authData.user,
@@ -102,7 +100,7 @@ function UsersList() {
             <div className={classes.onlineIcon}></div>
           </ListItemIcon>
           <ListItemText
-            style={{ maxWidth: "80px" }}
+            className={classes.userInfo}
             primary={user.username}
             secondary={
               <Typography
@@ -112,7 +110,7 @@ function UsersList() {
                 color="textSecondary"
               >
                 {user.latestMessage
-                  ? clipStr(user.latestMessage.content, 12)
+                  ? user.latestMessage.content
                   : "You are connected!"}
               </Typography>
             }

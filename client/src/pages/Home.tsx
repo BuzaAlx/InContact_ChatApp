@@ -10,9 +10,17 @@ import { useHomeStyles } from "./styles";
 import { useSelector, useDispatch } from "react-redux";
 import { addMessage, addReaction } from "../redux/Users/users.actions";
 
-const mapState = (state) => ({
-  user: state.authData.user,
-});
+interface User {
+  username: string;
+}
+
+interface AuthData {
+  user: User;
+}
+
+interface RootState {
+  authData: AuthData;
+}
 
 const NEW_MESSAGE = gql`
   subscription newMessage {
@@ -25,6 +33,18 @@ const NEW_MESSAGE = gql`
     }
   }
 `;
+
+interface Message {
+  uuid: string;
+  from: string;
+  to: string;
+  content: string;
+  createdA: string;
+}
+
+interface NewMessage {
+  newMessage: Message;
+}
 
 const NEW_REACTION = gql`
   subscription newReaction {
@@ -40,18 +60,40 @@ const NEW_REACTION = gql`
   }
 `;
 
-function Home() {
+interface ReactionMessage {
+  uuid: string;
+  from: string;
+  to: string;
+}
+
+interface Reaction {
+  uuid: string;
+  content: string;
+  message: ReactionMessage;
+}
+
+interface NewReaction {
+  newReaction: Reaction;
+}
+
+const mapState = (state: RootState) => ({
+  user: state.authData.user,
+});
+
+const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const styles = useHomeStyles();
+  const styles: any = useHomeStyles();
   const { user } = useSelector(mapState);
 
-  const { data: messageData, error: messageError } = useSubscription(
-    NEW_MESSAGE
-  );
+  const {
+    data: messageData,
+    error: messageError,
+  } = useSubscription<NewMessage>(NEW_MESSAGE);
 
-  const { data: reactionData, error: reactionError } = useSubscription(
-    NEW_REACTION
-  );
+  const {
+    data: reactionData,
+    error: reactionError,
+  } = useSubscription<NewReaction>(NEW_REACTION);
 
   useEffect(() => {
     if (messageError) console.log(messageError);
@@ -91,6 +133,6 @@ function Home() {
       </Grid>
     </Loyout>
   );
-}
+};
 
 export default Home;
