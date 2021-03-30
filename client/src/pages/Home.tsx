@@ -6,21 +6,11 @@ import Loyout from "../components/Loyout";
 import UsersList from "../components/UsersList";
 import Messages from "../components/Messages";
 import { useHomeStyles } from "./styles";
-
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addMessage, addReaction } from "../redux/Users/users.actions";
+import { useTypedSelector } from "../customHooks/useTypedSelector";
 
-interface User {
-  username: string;
-}
-
-interface AuthData {
-  user: User;
-}
-
-interface RootState {
-  authData: AuthData;
-}
+import { NewMessage, NewReaction } from "../types/Pages/Home";
 
 const NEW_MESSAGE = gql`
   subscription newMessage {
@@ -33,18 +23,6 @@ const NEW_MESSAGE = gql`
     }
   }
 `;
-
-interface Message {
-  uuid: string;
-  from: string;
-  to: string;
-  content: string;
-  createdA: string;
-}
-
-interface NewMessage {
-  newMessage: Message;
-}
 
 const NEW_REACTION = gql`
   subscription newReaction {
@@ -60,30 +38,12 @@ const NEW_REACTION = gql`
   }
 `;
 
-interface ReactionMessage {
-  uuid: string;
-  from: string;
-  to: string;
-}
-
-interface Reaction {
-  uuid: string;
-  content: string;
-  message: ReactionMessage;
-}
-
-interface NewReaction {
-  newReaction: Reaction;
-}
-
-const mapState = (state: RootState) => ({
-  user: state.authData.user,
-});
+const mapState = (state: any) => ({ user: state.authData.user });
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
-  const styles: any = useHomeStyles();
-  const { user } = useSelector(mapState);
+  const styles = useHomeStyles();
+  const { user } = useTypedSelector(mapState);
 
   const {
     data: messageData,
@@ -100,6 +60,7 @@ const Home: React.FC = () => {
 
     if (messageData) {
       const message = messageData.newMessage;
+      console.log(message);
       const otherUser =
         user.username === message.to ? message.from : message.to;
 
@@ -124,7 +85,7 @@ const Home: React.FC = () => {
   return (
     <Loyout>
       <Grid className={styles.content} container item sm={12} md={10} lg={8}>
-        <Grid item xs={3} sm={4} md={4} className={styles.leftBlock}>
+        <Grid item xs={3} sm={4} md={4}>
           <UsersList />
         </Grid>
         <Grid item xs={8} className={styles.rightBlock}>

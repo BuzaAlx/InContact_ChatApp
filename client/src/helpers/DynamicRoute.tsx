@@ -1,9 +1,8 @@
 import React, { ComponentType } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../types";
+import { useTypedSelector } from "../customHooks/useTypedSelector";
 
-const mapState = (state: RootState) => ({
+const mapState = (state: any) => ({
   user: state.authData.user,
 });
 
@@ -16,7 +15,7 @@ interface Props {
 }
 
 const DynamicRoute: React.FC<Props> = (props) => {
-  const { user } = useSelector(mapState);
+  const { user } = useTypedSelector(mapState);
 
   if (props.authenticated && !user) {
     return <Redirect to="/login" />;
