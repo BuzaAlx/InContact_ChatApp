@@ -1,10 +1,15 @@
-import userTypes from "./users.types";
+import { userTypes } from "../../types/redux/User";
+import { UsersState } from "../../types/redux/User";
+import { UserActions } from "../../types/redux/User";
 
-const INITIAL_STATE = {
-  users: null,
+const INITIAL_STATE: UsersState = {
+  users: [],
 };
 
-const usersReducer = (state = INITIAL_STATE, action) => {
+const usersReducer = (
+  state = INITIAL_STATE,
+  action: UserActions
+): UsersState => {
   let usersCopy, userIndex;
 
   switch (action.type) {
@@ -65,6 +70,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
         ...state,
         users: usersCopy,
       };
+
     case userTypes.ADD_REACTION:
       let { reaction } = action.payload;
       usersCopy = [...state.users];
@@ -76,7 +82,7 @@ const usersReducer = (state = INITIAL_STATE, action) => {
       let userCopy = { ...usersCopy[userIndex] };
 
       let messageIndex = userCopy.messages.findIndex(
-        (m) => m.uuid === reaction.message.uuid
+        (m: any) => m.uuid === reaction.message.uuid
       );
 
       if (messageIndex > -1) {
@@ -105,7 +111,10 @@ const usersReducer = (state = INITIAL_STATE, action) => {
           ...state,
           users: usersCopy,
         };
+      } else {
+        return state;
       }
+
     default:
       return state;
   }

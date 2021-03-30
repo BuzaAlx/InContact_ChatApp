@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react";
+import React, { useState, FormEvent } from "react";
 import { Grid, TextField, Button, Typography } from "@material-ui/core";
 import { gql, useLazyQuery, ApolloError } from "@apollo/client";
 import { Link } from "react-router-dom";
@@ -6,22 +6,7 @@ import Loyout from "../components/Loyout";
 import { useSignInStyles } from "./styles";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/Auth/auth.actions";
-
-interface Login {
-  username: string;
-  email: string;
-  createdAt: number;
-  token: string;
-}
-
-interface loginData {
-  login: Login;
-}
-
-interface LoginVars {
-  username: string;
-  password: string;
-}
+import { LoginData, LoginVars } from "../types/Pages/SignIn";
 
 const LOGIN_USER = gql`
   query login($username: String!, $password: String!) {
@@ -34,31 +19,29 @@ const LOGIN_USER = gql`
   }
 `;
 
-const SignIn: React.FC = (props: any) => {
+const SignIn: React.FC = () => {
   const dispatch = useDispatch();
-  const [errors, setErrors] = useState<any | null>({});
+  const [errors, setErrors] = useState<ApolloError | any>({});
   const [variables, setVariables] = useState({
     username: "",
     password: "",
   });
 
-  const classes: any = useSignInStyles();
+  const classes = useSignInStyles();
 
-  const [loginUser, { loading }] = useLazyQuery<loginData, LoginVars>(
+  const [loginUser, { loading }] = useLazyQuery<LoginData, LoginVars>(
     LOGIN_USER,
     {
       onError: (err: ApolloError | any) =>
         setErrors(err.graphQLErrors[0].extensions.errors),
 
       onCompleted(data) {
-        console.log(data, "asdasdasds");
         dispatch(login(data.login));
-        // window.location.href = "/";
       },
     }
   );
 
-  const submitLoginForm = (e: any) => {
+  const submitLoginForm = (e: FormEvent) => {
     e.preventDefault();
     loginUser({ variables });
   };
