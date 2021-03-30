@@ -1,4 +1,4 @@
-interface Login {
+export interface Login {
   username: string;
   email: string;
   createdAt: number;

@@ -1,6 +1,6 @@
-import { userTypes } from "../../types/redux/User";
-import { UsersState } from "../../types/redux/User";
-import { UserActions } from "../../types/redux/User";
+import { userTypes } from "../../types/Redux/User";
+import { UsersState } from "../../types/Redux/User";
+import { UserActions } from "../../types/Redux/User";
 
 const INITIAL_STATE: UsersState = {
   users: [],

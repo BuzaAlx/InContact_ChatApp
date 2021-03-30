@@ -1,17 +1,17 @@
-import { userTypes } from "../../types/redux/User";
+import { userTypes } from "../../types/Redux/User";
 import {
   setUsersInterface,
   setUserMessagesInterface,
   addMessageInterface,
   addReactionInterface,
   setSelectedUserInterface,
-} from "../../types/redux/User";
+} from "../../types/Redux/User";
 import {
   UsersState,
   setUserMessagesPayload,
   addMessagePayload,
   addReactionPayload,
-} from "../../types/redux/User";
+} from "../../types/Redux/User";
 
 export const setUsers = (users: UsersState): setUsersInterface => ({
   type: userTypes.SET_USERS,
