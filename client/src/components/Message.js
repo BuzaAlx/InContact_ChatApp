@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Avatar, Box, Typography, Popover, Button } from "@material-ui/core";
+import React from "react";
+import { Avatar, Box, Typography } from "@material-ui/core";
 import moment from "moment";
-import { useMessageStyles } from "./styles";
-
 import { useSelector } from "react-redux";
 import { gql, useMutation } from "@apollo/client";
+import { useMessageStyles } from "./styles";
+
+import { reactions } from "../helpers/ReactionList";
+import { usePopover } from "../customHooks/usePopover";
 
 const mapState = (state) => ({
   user: state.authData.user,
 });
-
-const reactions = ["❤️", "😆", "😯", "😢", "😡", "👍", "👎", "😎"];
 
 const REACT_TO_MESSAGE = gql`
   mutation reactToMessage($uuid: String!, $content: String!) {
@@ -21,19 +21,10 @@ const REACT_TO_MESSAGE = gql`
 `;
 
 function Message({ message, image }) {
-  const [anchorEl, setAnchorEl] = useState(null);
   const { user } = useSelector(mapState);
   const styles = useMessageStyles();
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
-  // handle poover
+  const [PopoverMarkup, setAnchorEl, handleClick] = usePopover();
 
   const sent = message.from === user.username;
   const received = !sent;
@@ -44,7 +35,7 @@ function Message({ message, image }) {
     onCompleted: () => setAnchorEl(false),
   });
 
-  const react = (reaction) => {
+  const onReact = (reaction) => {
     reactToMessage({ variables: { uuid: message.uuid, content: reaction } });
   };
 
@@ -66,32 +57,19 @@ function Message({ message, image }) {
         >
           {message.content}
         </Box>
-        <Popover
-          id={id}
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-        >
+        <PopoverMarkup>
           <Box className={styles.reactionsBox}>
             {reactions.map((reaction) => (
               <b
                 key={reaction}
                 className={styles.reaction}
-                onClick={() => react(reaction)}
+                onClick={() => onReact(reaction)}
               >
                 {reaction}
               </b>
             ))}
           </Box>
-        </Popover>
+        </PopoverMarkup>
 
         <Typography
           variant="body2"

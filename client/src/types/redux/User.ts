@@ -9,7 +9,7 @@ export enum userTypes {
 }
 
 export interface UsersState {
-  users: any[] | any;
+  users: any;
 }
 
 export interface setUserMessagesPayload {

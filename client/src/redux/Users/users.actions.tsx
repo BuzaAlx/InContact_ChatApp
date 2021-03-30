@@ -13,7 +13,7 @@ import {
   addReactionPayload,
 } from "../../types/Redux/User";
 
-export const setUsers = (users: UsersState): setUsersInterface => ({
+export const setUsers = (users: any): setUsersInterface => ({
   type: userTypes.SET_USERS,
   payload: users,
 });

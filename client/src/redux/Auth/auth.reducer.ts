@@ -7,10 +7,6 @@ interface MyToken {
   exp: number;
 }
 
-interface User {
-  user: MyToken;
-}
-
 let user = null;
 const token = localStorage.getItem("token");
 if (token) {

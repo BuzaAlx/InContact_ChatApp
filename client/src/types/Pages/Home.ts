@@ -3,7 +3,7 @@ export interface Message {
   from: string;
   to: string;
   content: string;
-  createdA: string;
+  createdAt: string;
   reactions?: any[];
 }
 

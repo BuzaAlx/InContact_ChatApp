@@ -12,13 +12,11 @@ import { gql, useQuery } from "@apollo/client";
 import { useUsersListStyles } from "./styles";
 import moment from "moment";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useTypedSelector } from "../customHooks/useTypedSelector";
 import { setUsers, setSelectedUser } from "../redux/Users/users.actions";
 
-const mapState = (state) => ({
-  user: state.authData.user,
-  users: state.usersData.users,
-});
+import { GetUsersData, User } from "../types/components/UsersList";
 
 const GET_USERS = gql`
   query getUsers {
@@ -37,17 +35,22 @@ const GET_USERS = gql`
   }
 `;
 
-function UsersList() {
+const mapState = (state: any) => ({
+  user: state.authData.user,
+  users: state.usersData.users,
+});
+
+const UsersList: React.FC = () => {
   const [value, setValue] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState([]);
-  const { user, users } = useSelector(mapState);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const { user, users } = useTypedSelector(mapState);
   const classes = useUsersListStyles();
 
   const dispatch = useDispatch();
 
-  const selectedUser = users?.find((u) => u.selected === true)?.username;
+  const selectedUser = users?.find((u: User) => u.selected === true)?.username;
 
-  const { loading } = useQuery(GET_USERS, {
+  const { loading } = useQuery<GetUsersData>(GET_USERS, {
     onCompleted: (data) => {
       setFilteredUsers(data.getUsers);
       dispatch(setUsers(data.getUsers));
@@ -57,7 +60,7 @@ function UsersList() {
 
   useEffect(() => {
     let newUsers;
-    newUsers = users?.filter((user) => {
+    newUsers = users?.filter((user: User) => {
       return user.username.startsWith(value.toLowerCase());
     });
 
@@ -156,6 +159,6 @@ function UsersList() {
       <List className={classes.usersList}>{usersMarkup}</List>
     </>
   );
-}
+};
 
 export default UsersList;
