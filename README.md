@@ -15,6 +15,7 @@
  - JWTtoken for authorization,
  - adding reaction to the message,
  - Redux.
+ - Client side typisation using Typescript
  
 
 > The purpose of creating this app is 
@@ -33,6 +34,7 @@
 - [Apollo GraphQl],
 - [React]
 - [Material-UI]
+- [TypeScript]
 
 
 ## Installation
