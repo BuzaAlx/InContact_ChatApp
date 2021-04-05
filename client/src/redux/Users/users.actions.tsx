@@ -7,7 +7,6 @@ import {
   setSelectedUserInterface,
 } from "../../types/Redux/User";
 import {
-  UsersState,
   setUserMessagesPayload,
   addMessagePayload,
   addReactionPayload,

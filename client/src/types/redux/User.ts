@@ -9,10 +9,6 @@ export enum userTypes {
   ADD_REACTION = "ADD_REACTION",
 }
 
-// export interface User {
-//   users: any;
-// }
-
 export interface UsersState {
   users: User[] | any;
 }

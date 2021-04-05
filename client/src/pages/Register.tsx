@@ -4,13 +4,7 @@ import { gql, useMutation, ApolloError } from "@apollo/client";
 import { Link, RouteComponentProps } from "react-router-dom";
 import Loyout from "../components/Loyout";
 import { useRegisterStyles } from "./styles";
-
-interface userCredentials {
-  email: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
-}
+import { userCredentials } from "../types/Pages/Register";
 
 const REGISTER_USER = gql`
   mutation register(
