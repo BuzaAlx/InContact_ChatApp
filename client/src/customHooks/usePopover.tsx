@@ -12,36 +12,7 @@ export function usePopover() {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const PopoverMarkup: React.FC = ({ children }) => {
-    return (
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-      >
-        {children}
-      </Popover>
-    );
-  };
-
-  return [
-    PopoverMarkup,
-    anchorEl,
-    setAnchorEl,
-    handleClick,
-    handleClose,
-    open,
-    id,
-  ];
+  return [anchorEl, setAnchorEl, handleClick, handleClose, open, id];
 }
 
 export default usePopover;

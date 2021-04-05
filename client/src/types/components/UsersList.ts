@@ -7,6 +7,7 @@ export interface User {
   latestMessage: Message;
   selected?: boolean;
   getUsers: any[];
+  messages: Message[];
 }
 
 export interface GetUsersData {

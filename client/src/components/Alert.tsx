@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
 import MuiAlert from "@material-ui/lab/Alert";
 import { Box } from "@material-ui/core/";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
-export const useAlertStyles = makeStyles((theme) => ({
-  container: {
-    position: "absolute",
-    zIndex: "100",
-    bottom: 60,
-  },
-}));
+export const useAlertStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      position: "absolute",
+      zIndex: 100,
+      bottom: 60,
+    },
+  })
+);
 
-function Alert({ message, setErrors, expiresIn }) {
+function Alert({ message, setErrors, expiresIn }: any) {
   const styles = useAlertStyles();
 
   useEffect(() => {

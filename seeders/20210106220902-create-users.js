@@ -13,7 +13,7 @@ module.exports = {
         email: "user@email.com",
         password: password,
         imageUrl:
-          "https://bain.design/wp-content/uploads/2013/03/People-Avatar-Set-Rectangular-18.jpg",
+          "https://react.semantic-ui.com/images/avatar/large/elliot.jpg",
         createdAt,
         updatedAt,
       },
@@ -21,7 +21,7 @@ module.exports = {
         username: "elena",
         email: "elena@email.com",
         password: password,
-        imageUrl: "https://essayslimmer.com/assets/avatars/stevie.jpg",
+        imageUrl: "https://semantic-ui.com/images/avatar2/large/kristy.png",
         createdAt,
         updatedAt,
       },
@@ -29,8 +29,7 @@ module.exports = {
         username: "viktor",
         email: "viktor@email.com",
         password: password,
-        imageUrl:
-          "https://lh3.googleusercontent.com/proxy/zrVrWKKNo74Df6iH3qJGMrJBFlicGJMJHQjjBdM-olWfB8vx3ly_BjL_kn5eOZyWZDxWz9Z8oIwm7vx_vpLntHoG8vd_ilKxsNQsqzGc",
+        imageUrl: "https://semantic-ui.com/images/avatar2/large/elyse.png",
         createdAt,
         updatedAt,
       },

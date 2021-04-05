@@ -5,9 +5,10 @@ import jwtDecode from "jwt-decode";
 interface MyToken {
   name: string;
   exp: number;
+  user: any;
 }
 
-let user = null;
+let user: MyToken | null = null;
 const token = localStorage.getItem("token");
 if (token) {
   const decodedToken = jwtDecode<MyToken>(token);

@@ -12,18 +12,22 @@ import {
   Typography,
 } from "@material-ui/core/";
 import { logout } from "../redux/Auth/auth.actions";
-
-import MailOutlineOutlinedIcon from "@material-ui/icons/MailOutlineOutlined";
 import ExitToAppTwoToneIcon from "@material-ui/icons/ExitToAppTwoTone";
+import MailOutlineOutlinedIcon from "@material-ui/icons/MailOutlineOutlined";
+import { gql, useLazyQuery, useMutation } from "@apollo/client";
+import { useDispatch } from "react-redux";
+
 import Message from "./Message";
 import { useMessagesStyles } from "./styles";
-import { gql, useLazyQuery, useMutation } from "@apollo/client";
-import { useSelector, useDispatch } from "react-redux";
 import { setUserMessages } from "../redux/Users/users.actions";
-
 import Alert from "./Alert";
 
-const mapState = (state) => ({
+import { useTypedSelector } from "../customHooks/useTypedSelector";
+import { UsersState } from "../types/Redux/User";
+import { User } from "../types/components/UsersList";
+import { Message as MessageType } from "../types/Pages/Home";
+
+const mapState = (state: any) => ({
   users: state.usersData.users,
 });
 
@@ -55,20 +59,24 @@ const GET_MESSAGES = gql`
   }
 `;
 
+interface Error {
+  message?: string;
+}
+
 function Messages() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-  const [errors, setErrors] = useState("");
+  const [errors, setErrors] = useState<Error>();
   const styles = useMessagesStyles();
 
-  const { users } = useSelector(mapState);
+  const { users } = useTypedSelector<UsersState>(mapState);
 
   const handleLogout = () => {
     dispatch(logout());
     window.location.href = "/login";
   };
 
-  const selectedUser = users?.find((u) => u.selected === true);
+  const selectedUser = users?.find((u: User) => u.selected === true);
   const messages = selectedUser?.messages;
 
   const [
@@ -90,14 +98,14 @@ function Messages() {
     if (messagesData) {
       dispatch(
         setUserMessages({
-          username: selectedUser.username,
+          username: selectedUser?.username,
           messages: messagesData.getMessages,
         })
       );
     }
   }, [messagesData]);
 
-  const submitMessage = (e) => {
+  const submitMessage = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (content.trim() === "" || !selectedUser) return;
@@ -113,13 +121,13 @@ function Messages() {
     );
   } else if (messagesLoading) {
     selectedChatMarkup = <Typography variant="overline">Loading..</Typography>;
-  } else if (messages.length > 0) {
-    selectedChatMarkup = messages.map((message, index) => (
+  } else if (messages?.length !== 0) {
+    selectedChatMarkup = messages?.map((message: MessageType) => (
       <React.Fragment key={message.uuid}>
-        <Message image={selectedUser.imageUrl} message={message} />
+        <Message image={selectedUser?.imageUrl} message={message} />
       </React.Fragment>
     ));
-  } else if (messages.length === 0) {
+  } else if (messages?.length === 0) {
     selectedChatMarkup = (
       <Typography variant="overline">
         You are now connected! send your first message!
@@ -129,7 +137,7 @@ function Messages() {
 
   return (
     <Box className={styles.container}>
-      <Box className={styles.header}>
+      <Box>
         <List>
           <ListItem key="RemySharp" className={styles.messagesHeader}>
             <ListItemIcon>
@@ -142,7 +150,7 @@ function Messages() {
               style={{ textTransform: "uppercase" }}
               primary={selectedUser ? selectedUser.username : ""}
             />
-            <ListItemText align="right" className={styles.logoutButton}>
+            <ListItemText className={styles.logoutButton}>
               <IconButton onClick={handleLogout}>
                 <ExitToAppTwoToneIcon />
               </IconButton>

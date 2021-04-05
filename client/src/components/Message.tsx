@@ -1,14 +1,15 @@
 import React from "react";
-import { Avatar, Box, Typography } from "@material-ui/core";
+import { Avatar, Box, Typography, Popover } from "@material-ui/core";
 import moment from "moment";
-import { useSelector } from "react-redux";
 import { gql, useMutation } from "@apollo/client";
 import { useMessageStyles } from "./styles";
 
 import { reactions } from "../helpers/ReactionList";
 import { usePopover } from "../customHooks/usePopover";
+import { useTypedSelector } from "../customHooks/useTypedSelector";
+import { Message as MessageType } from "../types/Pages/Home";
 
-const mapState = (state) => ({
+const mapState = (state: any) => ({
   user: state.authData.user,
 });
 
@@ -20,22 +21,36 @@ const REACT_TO_MESSAGE = gql`
   }
 `;
 
-function Message({ message, image }) {
-  const { user } = useSelector(mapState);
+interface MessageInterface {
+  message: MessageType;
+  image: string;
+}
+
+const Message: React.FC<MessageInterface> = ({ message, image }) => {
+  const { user } = useTypedSelector(mapState);
   const styles = useMessageStyles();
 
-  const [PopoverMarkup, setAnchorEl, handleClick] = usePopover();
+  const [
+    anchorEl,
+    setAnchorEl,
+    handleClick,
+    handleClose,
+    open,
+    id,
+  ] = usePopover();
 
   const sent = message.from === user.username;
   const received = !sent;
-  const reactionIcons = [...new Set(message.reactions.map((r) => r.content))];
+  const reactionIcons = Array.from(
+    new Set(message?.reactions?.map((r) => r.content))
+  );
 
   const [reactToMessage] = useMutation(REACT_TO_MESSAGE, {
     onError: (err) => console.log(err),
     onCompleted: () => setAnchorEl(false),
   });
 
-  const onReact = (reaction) => {
+  const onReact = (reaction: string) => {
     reactToMessage({ variables: { uuid: message.uuid, content: reaction } });
   };
 
@@ -57,7 +72,20 @@ function Message({ message, image }) {
         >
           {message.content}
         </Box>
-        <PopoverMarkup>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+        >
           <Box className={styles.reactionsBox}>
             {reactions.map((reaction) => (
               <b
@@ -69,7 +97,7 @@ function Message({ message, image }) {
               </b>
             ))}
           </Box>
-        </PopoverMarkup>
+        </Popover>
 
         <Typography
           variant="body2"
@@ -79,14 +107,14 @@ function Message({ message, image }) {
           {moment(message.createdAt).format("MMM DD @ h:mm a")}
         </Typography>
 
-        {message.reactions.length > 0 && (
+        {message?.reactions?.length !== 0 && (
           <Box className={received ? styles.emoji : styles.emojiRight}>
-            {reactionIcons} {message.reactions.length}
+            {reactionIcons} {message?.reactions?.length}
           </Box>
         )}
       </Box>
     </Box>
   );
-}
+};
 
 export default Message;

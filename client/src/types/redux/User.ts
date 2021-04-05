@@ -1,4 +1,5 @@
 import { Message, Reaction } from "../Pages/Home";
+import { User } from "../components/UsersList";
 
 export enum userTypes {
   SET_USERS = "SET_USERS",
@@ -8,12 +9,16 @@ export enum userTypes {
   ADD_REACTION = "ADD_REACTION",
 }
 
+// export interface User {
+//   users: any;
+// }
+
 export interface UsersState {
-  users: any;
+  users: User[] | any;
 }
 
 export interface setUserMessagesPayload {
-  username: string;
+  username: string | undefined;
   messages: any[];
 }
 export interface addMessagePayload {

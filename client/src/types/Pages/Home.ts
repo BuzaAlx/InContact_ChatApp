@@ -4,7 +4,7 @@ export interface Message {
   to: string;
   content: string;
   createdAt: string;
-  reactions?: any[];
+  reactions?: Reaction[];
 }
 
 export interface NewMessage {
