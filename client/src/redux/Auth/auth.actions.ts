@@ -1,5 +1,5 @@
-import { loginInterface, logoutInterface } from "./../../types/Redux/Auth";
-import { authTypes } from "../../types/Redux/Auth";
+import { loginInterface, logoutInterface } from "./../../types/redux/Auth";
+import { authTypes } from "../../types/redux/Auth";
 import { Login } from "../../types/Pages/SignIn";
 
 export const login = (userCredentials: Login): loginInterface => ({

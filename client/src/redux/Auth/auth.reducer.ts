@@ -1,5 +1,5 @@
-import { AuthActions } from "../../types/Redux/Auth";
-import { authTypes } from "../../types/Redux/Auth";
+import { AuthActions } from "./../../types/redux/Auth";
+import { authTypes } from "../../types/redux/Auth";
 import jwtDecode from "jwt-decode";
 
 interface MyToken {

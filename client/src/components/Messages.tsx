@@ -23,7 +23,7 @@ import { setUserMessages } from "../redux/Users/users.actions";
 import Alert from "./Alert";
 
 import { useTypedSelector } from "../customHooks/useTypedSelector";
-import { UsersState } from "../types/Redux/User";
+import { UsersState } from "../types/redux/User";
 import { User } from "../types/components/UsersList";
 import { Message as MessageType } from "../types/Pages/Home";
 
@@ -79,10 +79,8 @@ function Messages() {
   const selectedUser = users?.find((u: User) => u.selected === true);
   const messages = selectedUser?.messages;
 
-  const [
-    getMessages,
-    { loading: messagesLoading, data: messagesData },
-  ] = useLazyQuery(GET_MESSAGES);
+  const [getMessages, { loading: messagesLoading, data: messagesData }] =
+    useLazyQuery(GET_MESSAGES);
 
   const [sendMessage] = useMutation(SEND_MESSAGE, {
     onError: (err) => setErrors(err),
